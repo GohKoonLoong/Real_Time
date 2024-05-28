@@ -1,7 +1,8 @@
 package com.uum.demo.model;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.persistence.*;
+
+import java.util.Date;
 
 @Entity
 @Table(name="sales")
@@ -9,11 +10,18 @@ import jakarta.persistence.Table;
 public class Sales {
 
     @Id
-    private String invoiceNo;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long invoiceNo;
+
     private String stockCode;
     private String description;
     private int quantity;
-    private String invoiceDate;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SSSSSS")
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "invoice_date", updatable = false, insertable = false)
+    private Date invoiceDate; // This field is managed by the database
+
     private double unitPrice;
     private String customerID;
     private String country;
@@ -21,7 +29,7 @@ public class Sales {
     public Sales(){
     }
 
-    public Sales(String invoiceNo, String stockCode, String description, int quantity, String invoiceDate, double unitPrice, String customerID, String country){
+    public Sales(Long invoiceNo, String stockCode, String description, int quantity, Date invoiceDate, double unitPrice, String customerID, String country){
         this.invoiceNo = invoiceNo;
         this.stockCode = stockCode;
         this.description = description;
@@ -32,13 +40,13 @@ public class Sales {
         this.country = country;
     }
 
-    public String getInvoiceNo() {
+    public Long getInvoiceNo() {
         return invoiceNo;
     }
 
-    public void setInvoiceNo(String invoiceNo) {
-        this.invoiceNo = invoiceNo;
-    }
+//    public void setInvoiceNo(String invoiceNo) {
+//        this.invoiceNo = invoiceNo;
+//    }
 
     public String getStockCode() {
         return stockCode;
@@ -64,13 +72,13 @@ public class Sales {
         this.quantity = quantity;
     }
 
-    public String getInvoiceDate() {
+    public Date getInvoiceDate() {
         return invoiceDate;
     }
 
-    public void setInvoiceDate(String invoiceDate) {
-        this.invoiceDate = invoiceDate;
-    }
+//    public void setInvoiceDate(String invoiceDate) {
+//        this.invoiceDate = invoiceDate;
+//    }
 
     public double getUnitPrice() {
         return unitPrice;

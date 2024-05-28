@@ -31,24 +31,24 @@ public class SalesServiceImpl implements SalesService {
     public String updateSales(Sales sales) {
         try {
             salesRepository.save(sales);
-            return "Success";
+            return "";
         } catch (Exception e) {
             throw new SalesNotFoundException("Failed to update sales: " + e.getMessage());
         }
     }
 
     @Override
-    public String deleteSales(String invoiceNo) {
+    public String deleteSales(Long invoiceNo) {
         try {
             salesRepository.deleteById(invoiceNo);
-            return "Success";
+            return "";
         } catch (Exception e) {
             throw new SalesNotFoundException("Sales with Invoice No: " + invoiceNo + " not found");
         }
     }
 
     @Override
-    public Sales getSales(String invoiceNo) {
+    public Sales getSales(Long invoiceNo) {
         if(salesRepository.findById(invoiceNo).isEmpty())
             throw new SalesNotFoundException("Requested Sales does not exist");
         return salesRepository.findById(invoiceNo).get();

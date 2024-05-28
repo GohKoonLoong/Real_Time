@@ -6,7 +6,7 @@ import java.util.List;
 public interface SalesService {
     public String createSales(Sales sales);
     public String updateSales(Sales sales);
-    public String deleteSales(String invoiceNo);
-    public Sales getSales(String invoiceNo);
+    public String deleteSales(Long invoiceNo);
+    public Sales getSales(Long invoiceNo);
     public List<Sales> getAllSales();
 }
